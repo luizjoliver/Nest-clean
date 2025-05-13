@@ -1,12 +1,12 @@
-import { Module } from "@nestjs/common";
-import { PrismaService } from "./prisma/prisma.service";
-import { ConfigModule } from "@nestjs/config";
-import { envSchema } from "./env";
-import { AuthModule } from "./auth/auth.module";
-import { CreateAccountController } from "./controllers/create-account.controller";
-import { AuthenticateController } from "./controllers/authenticate.controller";
-import { CreateQuestionsController } from "./controllers/create-question.controller";
-import { FetchRecentQuestionsController } from "./controllers/fetch-recent-questions.controller";
+import { Module } from '@nestjs/common'
+import { PrismaService } from './prisma/prisma.service'
+import { ConfigModule } from '@nestjs/config'
+import { envSchema } from './env'
+import { AuthModule } from './auth/auth.module'
+import { CreateAccountController } from './controllers/create-account.controller'
+import { AuthenticateController } from './controllers/authenticate.controller'
+import { CreateQuestionsController } from './controllers/create-question.controller'
+import { FetchRecentQuestionsController } from './controllers/fetch-recent-questions.controller'
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -15,7 +15,12 @@ import { FetchRecentQuestionsController } from "./controllers/fetch-recent-quest
     }),
     AuthModule,
   ],
-  controllers: [CreateAccountController,AuthenticateController,CreateQuestionsController,FetchRecentQuestionsController],
+  controllers: [
+    CreateAccountController,
+    AuthenticateController,
+    CreateQuestionsController,
+    FetchRecentQuestionsController,
+  ],
   providers: [PrismaService],
 })
 export class AppModule {}

@@ -1,40 +1,40 @@
-import { Controller, Get, Query, UseGuards } from "@nestjs/common";
-import { JwtAuthGuard } from "src/auth/jwt.guard";
-import { ZodValidationPipe } from "src/pipes/zod-validation-pipe";
-import { PrismaService } from "src/prisma/prisma.service";
-import { z } from "zod";
+import { Controller, Get, Query, UseGuards } from '@nestjs/common'
+import { JwtAuthGuard } from 'src/auth/jwt.guard'
+import { ZodValidationPipe } from 'src/pipes/zod-validation-pipe'
+import { PrismaService } from 'src/prisma/prisma.service'
+import { z } from 'zod'
 
 const pageQueryParamSchema = z
   .string()
   .optional()
-  .default("1")
+  .default('1')
   .transform(Number)
-  .pipe(z.number().min(1));
+  .pipe(z.number().min(1))
 
-const queryValidationPipe = new ZodValidationPipe(pageQueryParamSchema);
+const queryValidationPipe = new ZodValidationPipe(pageQueryParamSchema)
 
-type PageQueryParamsSchema = z.infer<typeof pageQueryParamSchema>;
+type PageQueryParamsSchema = z.infer<typeof pageQueryParamSchema>
 
-@Controller("/questions")
+@Controller('/questions')
 @UseGuards(JwtAuthGuard)
 export class FetchRecentQuestionsController {
   constructor(private prisma: PrismaService) {}
   @Get()
   async handle(
-    @Query("page", queryValidationPipe) page: PageQueryParamsSchema
+    @Query('page', queryValidationPipe) page: PageQueryParamsSchema,
   ) {
-    const perPage = 1;
+    const perPage = 1
 
     const questions = await this.prisma.question.findMany({
       take: perPage,
       skip: (page - 1) * perPage,
       orderBy: {
-        createdAt: "desc",
+        createdAt: 'desc',
       },
-    });
+    })
 
     return {
       questions,
-    };
+    }
   }
 }

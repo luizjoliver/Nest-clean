@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "lib": ["ES2023"],
+    "module": "node16",
+    "target": "ES2023",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2021",
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
@@ -17,6 +18,14 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "types": ["vitest/globals"],
+     "paths": {
+    "@/*": ["src/*"],
+    "types":["vitest/globals"],
+    
   }
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts", "**/*.spec.ts"],
+  "exclude": ["node_modules", "dist"]
 }
